@@ -35,13 +35,22 @@ function Kill {
 } 
 
 
-if ( IsRunning($APP1) ) 
-{
-    Write-Output "Starting " + $APP2
-    Start($APP2)
-}
+
+while ($true) 
+{ 
+    if ( IsRunning($APP1) ) 
+    {
+        Write-Output "Starting " + $APP2
+        Start($APP2)
+    }
     #app2 is running without app1
-elseif (IsRunning($APP2) -and IsRunning($APP1) -eq false ){
-    #Not using Kill($) cuz it fails
-    Stop-Process -Name $APP2_NAME
+    elseif (IsRunning($APP2) -and IsRunning($APP1) -eq false )
+    {
+        #Not using Kill($) cuz it fails
+        Stop-Process -Name $APP2_NAME
+    }
+
+
+    sleep -seconds 30 
 }
+
